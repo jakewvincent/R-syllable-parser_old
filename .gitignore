@@ -1,4 +1,10 @@
 # Ignore these file extensions:
 *.Rproj
+*.RData
+*.Rhistory
 *.html
 *.tiff
+
+# Ignore these directories
+.Rproj.user/
+.vscode/
