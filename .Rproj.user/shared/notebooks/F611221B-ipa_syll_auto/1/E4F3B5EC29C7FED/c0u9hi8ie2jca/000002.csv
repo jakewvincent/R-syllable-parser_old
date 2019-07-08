@@ -1,0 +1,12 @@
+"0","# Save a version to replace arpabet strings w/ IPA characters"
+"0","cmudictipa <- cmudictarpa"
+"0",""
+"0","# Get a list of all the segments in the arpabet"
+"0","arpa.segments <- NA"
+"0","for (segment in 2:w) {"
+"0","  arpa.segments <- c(arpa.segments, unique(cmudictarpa[,segment])"
+"0","}"
+"2","Error: unexpected '}' in:
+""  arpa.segments <- c(arpa.segments, unique(cmudictarpa[,segment])
+}""
+"

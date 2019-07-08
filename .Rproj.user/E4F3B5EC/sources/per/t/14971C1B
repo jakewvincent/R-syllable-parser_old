@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1560117410978.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "425639117",
+    "id" : "14971C1B",
+    "lastKnownWriteTime" : 1556831414,
+    "last_content_update" : 1556831414,
+    "path" : "C:/Users/jakew/OneDrive/Documents/School/UCSC Grad school/QP2/QE/DDs_plot.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

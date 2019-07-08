@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1558562923340.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4011192361",
+    "id" : "A5C0B863",
+    "lastKnownWriteTime" : 1560050635,
+    "last_content_update" : 1560050636082,
+    "path" : "C:/Users/jakew/OneDrive/Documents/School/UCSC Grad school/Other projects/Transcription_syllable_automation/ipa_syll_auto.Rmd",
+    "project_path" : "ipa_syll_auto.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "504,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

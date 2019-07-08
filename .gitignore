@@ -1,0 +1,4 @@
+# Ignore these file extensions:
+*.Rproj
+*.html
+*.tiff

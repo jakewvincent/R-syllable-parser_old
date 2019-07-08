@@ -1,0 +1,2 @@
+"0","# Add a column into cmudictipa that abstracts into consonants and vowels"
+"0","suppressWarnings(cmudictipa$CV_string <- cvify(cmudictipa$transcription))"

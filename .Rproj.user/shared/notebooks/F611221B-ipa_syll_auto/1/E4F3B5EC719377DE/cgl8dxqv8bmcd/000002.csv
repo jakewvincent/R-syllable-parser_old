@@ -1,0 +1,68 @@
+"0","library(magrittr)"
+"0","library(dplyr)"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(ggplot2)"
+"0","library(stringr)"
+"0","library(tidyr)"
+"2","
+Attaching package: ‘tidyr’
+
+"
+"2","The following object is masked from ‘package:magrittr’:
+
+    extract
+
+"
+"0","# Define functions that work like RIGHT and LEFT in excel"
+"0","right = function(text, n_char) {"
+"0","  substr(text, nchar(text) - n_char + 1, nchar(text))"
+"0","}"
+"0","left = function(text, n_char) {"
+"0","  substr(text, 1, n_char)"
+"0","}"
+"0",""
+"0","# Modify default print rule"
+"0","# NOTE: REQUIRES CHANGING THE CLASS OF ANY DF W/ UNICODE IN IT. FOR EXAMPLE:"
+"0","#       class(d) <- c(""unicode_df"", ""data.frame"") "
+"0",""
+"0","# this is print.default from base R with only two lines modified, see #old# "
+"0","print.unicode_df <- function (x, ..., digits = NULL, quote = FALSE, right   "
+"0","= TRUE, "
+"0","     row.names = TRUE) "
+"0","{ "
+"0","     n <- length(row.names(x)) "
+"0","     if (length(x) == 0L) { "
+"0","         cat(sprintf(ngettext(n, ""data frame with 0 columns and %d row"", "
+"0","             ""data frame with 0 columns and %d rows"", domain = ""R-base""), "
+"0","             n), ""\n"", sep = """") "
+"0","     } "
+"0","     else if (n == 0L) { "
+"0","         print.default(names(x), quote = FALSE) "
+"0","         cat(gettext(""<0 rows> (or 0-length row.names)\n"")) "
+"0","     } "
+"0","     else { "
+"0","         #old# m <- as.matrix(format.data.frame(x, digits = digits, "
+"0","         #old#     na.encode = FALSE)) "
+"0","         m <- as.matrix(x) "
+"0","         if (!isTRUE(row.names)) "
+"0","             dimnames(m)[[1L]] <- if (identical(row.names, FALSE)) "
+"0","                 rep.int("""", n) "
+"0","             else row.names "
+"0","         print(m, ..., quote = quote, right = right) "
+"0","     } "
+"0","     invisible(x) "
+"0","} "
+"0",""

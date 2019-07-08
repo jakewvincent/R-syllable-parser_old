@@ -1,0 +1,215 @@
+x_study_DDs <- matrix(nrow = 14, ncol = 3)
+
+#English_1
+#English_2
+#English_3
+#English_4
+#English_5
+#English_6
+#Italian
+#Hebrew_1
+#Hebrew_2
+#Norwegian_1
+#Norwegian_2
+#Norwegian_3
+#Slovenian_1
+#Slovenian_2
+
+
+x_study_DDs[1,] <- c("English_1", "Exp. 1 (Def. trans. obj.)", 0.83)
+x_study_DDs[2,] <- c("English_2", "Exp. 1 (Indef. trans. obj.)", 0.70)
+x_study_DDs[3,] <- c("Norwegian_1", "Kush et al. Bare WH_1", 0.69)
+x_study_DDs[4,] <- c("Italian", "Sprouse et al._1", 0.67)
+x_study_DDs[5,] <- c("English_3", "Exp. 3 (Trans. obj.)", 0.62)
+x_study_DDs[6,] <- c("Hebrew_1", "Keshev et al. Obj. extr.", 0.47)
+x_study_DDs[7,] <- c("Norwegian_2", "Kush et al. Bare WH_2", 0.44)
+x_study_DDs[8,] <- c("English_6", "Sprouse et al._2", 0.40)
+x_study_DDs[9,] <- c("Norwegian_3", "Kush et al. Complex WH", 0.27)
+x_study_DDs[10,] <- c("English_5", "Exp. 3 (Existential)", 0.26)
+x_study_DDs[11,] <- c("English_4", "Exp. 3 (Predicate nominal)", 0.16)
+x_study_DDs[12,] <- c("Hebrew_2", "Keshev et al. Subj. extr.", 0.05)
+x_study_DDs[13,] <- c("Slovenian_1", "Stepanov et al. Obj. extr.", -0.02)
+x_study_DDs[14,] <- c("Slovenian_2", "Stepanov et al. Subj. extr.", -0.42)
+
+
+as.data.frame(x_study_DDs) -> x_study_DDs
+
+colnames(x_study_DDs) <- c("Language", "Source", "DD")
+
+x_study_DDs$DD %>% as.character %>% as.numeric -> x_study_DDs$DD
+x_study_DDs$Source %<>% as.character
+
+library(ggplot2)
+
+ggplot(x_study_DDs,
+       aes(x = reorder(Language, -DD),
+           y = DD)) +
+  geom_col(show.legend = FALSE,
+           fill = c("gray70",
+                    "gray70",
+                    "black",
+                    "black",
+                    "gray70",
+                    "gray70",
+                    "black",
+                    "gray70",
+                    "gray70",
+                    "gray70",
+                    "gray70",
+                    "black",
+                    "black",
+                    "gray70")) +
+  scale_x_discrete(labels = c("English",
+                              "English",
+                              "Norwegian",
+                              "Italian",
+                              "English",
+                              "Hebrew",
+                              "Norwegian",
+                              "English",
+                              "Norwegian",
+                              "English",
+                              "English",
+                              "Hebrew",
+                              "Slovenian",
+                              "Slovenian")) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        legend.title = element_text(size = 12), # text of legend title
+        legend.text = element_text(size = 12), # text of labels in the legend
+        axis.text = element_text(size = 12), # column labels
+        axis.title.x = element_text(size = 15, # text of x-axis title (here, "Dependency length")
+                                    margin = margin(0.5, NA, 0.5, NA, "cm")),
+        axis.title.y = element_text(size = 15, # text of y-axis title (here, "Mean rating")
+                                    margin = margin(NA, 0.5, NA, 0.5, "cm")),
+        strip.text.x = element_text(size = 15), # text of panels (here, context levels),
+        axis.text.x = element_text(angle = 45,
+                                   vjust = 1.1,
+                                   hjust = 1.1)) +
+  geom_text(aes(x = c(1:14),
+                y = c(0.585,
+                      0.436,
+                      0.469,
+                      0.521,
+                      0.414,
+                      0.24,
+                      0.225,
+                      0.251,
+                      0.525,
+                      0.455,
+                      0.432,
+                      0.29,
+                      0.255,
+                      0.265),
+                label = c(x_study_DDs$Source[1],
+                          x_study_DDs$Source[2],
+                          "Kush et al. Bare WH",
+                          "Sprouse et al.",
+                          x_study_DDs$Source[5],
+                          x_study_DDs$Source[6],
+                          "Kush et al. Bare WH",
+                          "Sprouse et al.",
+                          x_study_DDs$Source[9],
+                          x_study_DDs$Source[10],
+                          x_study_DDs$Source[11],
+                          x_study_DDs$Source[12],
+                          x_study_DDs$Source[13],
+                          x_study_DDs$Source[14])),
+            color = c("white",
+                      "white",
+                      "black",
+                      "black",
+                      "white",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black"),
+            angle = 90) +
+  labs(x = "Language",
+       y = "DD") -> DD_plot
+
+print(DD_plot)
+
+# Separate plot for project-internal DDs (now including Expt 4 DDs)
+
+internal_DDs <- matrix(nrow = 7, ncol = 3)
+
+internal_DDs[1,] <- c("English_1", "Exp. 1 (Def. trans. obj.)", 0.83)
+internal_DDs[2,] <- c("English_2", "Exp. 1 (Indef. trans. obj.)", 0.70)
+internal_DDs[3,] <- c("English_3", "Exp. 3 (Trans. obj.)", 0.62)
+internal_DDs[4,] <- c("English_4", "Exp. 4 (Predicate nominal)", 0.28)
+internal_DDs[5,] <- c("English_5", "Exp. 3 (Existential)", 0.26)
+internal_DDs[6,] <- c("English_6", "Exp. 3 (Predicate nominal)", 0.16)
+internal_DDs[7,] <- c("English_7", "Exp. 4 (Existential)", 0.08)
+
+as.data.frame(internal_DDs) -> internal_DDs
+
+colnames(internal_DDs) <- c("Language", "Source", "DD")
+
+internal_DDs$DD %>% as.character %>% as.numeric -> internal_DDs$DD
+
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Stepanov et al. (2018) Obj. extr.")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Stepanov et al. (2018) Subj. extr.")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Keshev et al. (2018) Subj. extr.")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Exp. 3 (Predicate nominal)")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Exp. 3 (Existential)")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Kush et al. (2018) Complex WH")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Sprouse et al. (2016)_1")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Kush et al. (2018) Bare WH_2")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Keshev et al. (2018) Obj. extr.")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Exp. 3 (Trans. obj.)")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Sprouse et al. (2016)_2")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Kush et al. (2018) Bare WH_1")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Exp. 1 (Indef. trans. obj.)")
+#internal_DDs$Source <- relevel(x_study_DDs$Source, "Exp. 1 (Def. trans. obj.)")
+
+
+ggplot(internal_DDs,
+       aes(x = Language,
+           y = DD)) +
+  geom_col(show.legend = FALSE,
+           fill = c("gray70",
+                    "gray70",
+                    "gray70",
+                    "black",
+                    "gray70",
+                    "gray70",
+                    "black")) +
+  scale_x_discrete(labels = NULL) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        legend.title = element_text(size = 12), # text of legend title
+        legend.text = element_text(size = 12), # text of labels in the legend
+        axis.text = element_text(size = 12), # column labels
+        axis.title.x = element_text(size = 15, # text of x-axis title (here, "Dependency length")
+                                    margin = margin(0.5, NA, 0.5, NA, "cm")),
+        axis.title.y = element_text(size = 15, # text of y-axis title (here, "Mean rating")
+                                    margin = margin(NA, 0.5, NA, 0.5, "cm")),
+        strip.text.x = element_text(size = 15), # text of panels (here, context levels),
+        axis.text.x = element_text(angle = 45,
+                                   vjust = 1.1,
+                                   hjust = 1.1)) +
+  geom_text(aes(x = c(1:7),
+                y = c(0.62,
+                      0.48,
+                      0.44,
+                      0.51,
+                      0.43,
+                      0.39,
+                      0.25),
+                label = Source),
+            color = c("black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black",
+                      "black"),
+            angle = 90) -> DD_internal_plot
+
+print(DD_internal_plot)
