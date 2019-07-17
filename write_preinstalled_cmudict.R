@@ -18,7 +18,8 @@ if (.Platform$OS.type == "windows") {
 }
 
 # Write the downloaded and formatted dictionary to a csv file
-cmudict_dld %>%
-  write_csv(.,
-            path = "cmudict_preinstalled.csv",
-            col_names = TRUE)
+write_csv(
+  cmudict_dld,
+  path = "cmudict_preinstalled.csv",
+  col_names = TRUE
+  )

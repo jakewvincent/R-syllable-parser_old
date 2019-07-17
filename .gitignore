@@ -1,9 +1,11 @@
 # Ignore these file extensions:
 *.Rproj
-*.RData
-*.Rhistory
+.RData
+.Rhistory
 *.html
 *.tiff
+*.Rmd
+cmudict-0.7b.xlsx
 
 # Ignore these directories
 .Rproj.user/
