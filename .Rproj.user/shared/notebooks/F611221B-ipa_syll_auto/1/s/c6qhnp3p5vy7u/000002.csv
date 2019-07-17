@@ -1,6 +1,0 @@
-"0","# Read in the CMU Pronouncing Dictionary"
-"0","cmudict <- read.csv(file = ""cmudict-0.7b.csv"","
-"0","                    comment.char = "";"","
-"0","                    sep = "" "","
-"0","                    header = FALSE)"
-"2","incomplete final line found by readTableHeader on 'cmudict-0.7b.csv'"
