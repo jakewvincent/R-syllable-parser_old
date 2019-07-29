@@ -119,11 +119,11 @@ message("Extracting stress information...")
   
   # Create a df w/ primary stress positions (by name of column, which reflects segment #)
   prim_stress_locs <- as.data.frame(
-    t(apply(cmudict_dld,
+    t(apply(cmudict_dld[,2:last_seg_col],
             1, # Apply by row
             function(x){
               # Save the colnames of the segments that end in 1 (bear primary stress)
-              r_s <- colnames(cmudict_dld)[which(right(x, 1) == "1")]
+              r_s <- colnames(cmudict_dld[,2:last_seg_col])[which(right(x, 1) == "1")]
               # Concatenate these colnames w/ the num of NAs necessary to make the length 6
               c(r_s,
                 rep(NA,
@@ -138,11 +138,11 @@ message("Extracting stress information...")
   
   # Create a df w/ secondary stress positions
   sec_stress_locs <- as.data.frame(
-    t(apply(cmudict_dld,
+    t(apply(cmudict_dld[,2:last_seg_col],
             1, # Apply by row
             function(x){
-              # Save the colnames of the segments that end in 1 (bear primary stress)
-              r_s <- colnames(cmudict_dld)[which(right(x, 1) == "2")]
+              # Save the colnames of the segments that end in 2 (bear secondary stress)
+              r_s <- colnames(cmudict_dld[,2:last_seg_col])[which(right(x, 1) == "2")]
               # Concatenate these colnames w/ the num of NAs necessary to make the length 6
               c(r_s,
                 rep(NA,
@@ -242,12 +242,26 @@ message("Extracting stress information...")
   
   ## New ARPABET-to-IPA conversion script
   
-  # Ask for user-defined replacements
-  response <- readline(prompt = "Would you like to define your own replacements for the arpa_to_ipa replacement function? Enter 'y' for yes or 'n' for no.")
-  if (str_detect(response, "y|Y")) {
-    user.replacements <- readline(prompt = "Provide your own replacements by entering the name of a character vector of the form c(\"AA0|AA1|AA2\" = \"ɑ\", \"AE0|AE1|AE2\" = \"æ\", ...), where the lefthand side is the ARPABET code and the righthand side is the IPA replacement. Make sure that the replacements for ARPABET codes that contain other ARPABET codes are provided *before* the contained ARPABET code, e.g. if there's an ARPABET code \"T\" and an ARPABET code \"TH\", provide the replacement for \"TH\" before the replacement for \"T\". Enter the name of your vector here, type \"cancel\" if you would like to stop formatting, or type \"default\" if you would like to use the default replacements: ")
+  # Ask for user-defined replacements. If user.replacements already exists, check its value.
+  # If its value is "preinstalled", the write_preinstalled_cmudict.R script is running,
+  # so change user.replacements value to "default".
+  # Otherwise, remove the object user.replacements from the environment.
+  # If user.replacements doesn't exist, ask if the user would like to provide their own replacements.
+  # If anything other than "y" is provided, tell user default replacements will be used.
+  if (exists("user.replacements")) {
+    if (user.replacements == "preinstalled") {
+      user.replacements <- "default"
+    } else {
+      rm(user.replacements)
+    }
   } else {
-    message("Using default replacements.")
+    response <- readline(prompt = "Would you like to define your own replacements for the arpa_to_ipa replacement function? Enter 'y' for yes or 'n' for no.")
+    if (str_detect(response, "y|Y")) {
+      user.replacements <- readline(prompt = "Provide your own replacements by entering the name of a character vector of the form c(\"AA0|AA1|AA2\" = \"ɑ\", \"AE0|AE1|AE2\" = \"æ\", ...), where the lefthand side is the ARPABET code and the righthand side is the IPA replacement. Make sure that the replacements for ARPABET codes that contain other ARPABET codes are provided *before* the contained ARPABET code, e.g. if there's an ARPABET code \"T\" and an ARPABET code \"TH\", provide the replacement for \"TH\" before the replacement for \"T\". Enter the name of your vector here, type \"cancel\" if you would like to stop formatting, or type \"default\" if you would like to use the default replacements: ")
+    } else {
+      user.replacements <- "default"
+      message("Using default replacements.")
+    }
   }
   
   # Check if script should be stopped
@@ -260,52 +274,52 @@ message("Extracting stress information...")
       require(stringr)
       if (missing(replacements)){
         if (user.replacements == "default") {
-          replacements <- c("AA0|AA1|AA2" = "ɑ",
-                            "AE0|AE1|AE2" = "æ",
-                            "AH0" = "ə",
-                            "AH1|AH2" = "ʌ",
-                            "AO0|AO1|AO2" = "ɔ",
-                            "AW0|AW1|AW2" = "aʊ",
-                            "AY0|AY1|AY2" = "aɪ",
+          replacements <- c("AA0|AA1|AA2" = "\u0251", #\u0251 = ɑ
+                            "AE0|AE1|AE2" = "\u00E6", #\u00E6 = æ
+                            "AH0" = "\u0259", #\u0259 = ə
+                            "AH1|AH2" = "\u028C", #\u028C = ʌ
+                            "AO0|AO1|AO2" = "\u0254", #\u0254 = ɔ
+                            "AW0|AW1|AW2" = "a\u028A", #\u028A = ʊ
+                            "AY0|AY1|AY2" = "a\u026A", #\u026A  = ɪ 
                             "B" = "b",
-                            "CH" = "ʧ",
-                            "DH" = "ð",
+                            "CH" = "\u02A6", #\u02A6  = ʦ 
+                            "DH" = "\u00F0", #\u00F0  = ð
                             "D" = "d",
-                            "EH0|EH1|EH2" = "ɛ",
-                            "ER0|ER1|ER2" = "ɚ",
-                            "EY0|EY1|EY2" = "eɪ",
+                            "EH0|EH1|EH2" = "\u025B", #\u025B  = ɛ
+                            "ER0|ER1|ER2" = "\u025A", #\u025A  = ɚ
+                            "EY0|EY1|EY2" = "e\u026A", #\u026A  = ɪ 
                             "F" = "f",
-                            "HH" = "h",
-                            "IH0|IH1|IH2" = "ɪ",
+                            "HH" = "h", 
+                            "IH0|IH1|IH2" = "\u026A", #\u026A  = ɪ 
                             "IY0|IY1|IY2" = "i",
-                            "JH" = "ʤ",
+                            "JH" = "\u02A3", #\u02A3  = ʣ
                             "K" = "k",
-                            "L" = "l",
-                            "M" = "m",
-                            "NG" = "ŋ",
+                            "L" = "l", 
+                            "M" = "m", 
+                            "NG" = "\u014B", #\u014B  = ŋ
                             "G" = "g",
-                            "N" = "n",
-                            "OW0|OW1|OW2" = "oʊ",
-                            "OY0|OY1|OY2" = "ɔɪ",
+                            "N" = "n", 
+                            "OW0|OW1|OW2" = "o\u028A", #\u028A = ʊ
+                            "OY0|OY1|OY2" = "\u0254\u026A", #\u0254 = ɔ, \u026A  = ɔɪ
                             "P" = "p",
-                            "R" = "ɹ",
-                            "SH" = "ʃ",
+                            "R" = "\u0279", #\u0279  = ɹ
+                            "SH" = "\u0283", #\u0283  = ʃ
                             "S" = "s",
-                            "TH" = "θ",
+                            "TH" = "\u03B8", #\u03B8  = θ
                             "T" = "t",
-                            "UH0|UH1|UH2" = "ʊ",
+                            "UH0|UH1|UH2" = "\u028A", #\u028A = ʊ
                             "UW0|UW1|UW2" = "u",
                             "V" = "v",
-                            "W" = "w",
-                            "Y" = "j",
-                            "ZH" = "ʒ",
-                            "Z" = "z")
+                            "W" = "w", 
+                            "Y" = "j", 
+                            "ZH" = "\u0292", #\u0292  = ʒ 
+                            "Z" = "z"
+                            )
         } else {
           # If user input is not "default", evaluate input as an R object and set it as
           # the replacements to be used in the conversion function
           replacements <- eval(parse(text = user.replacements))
         }
-        
       }
       str_replace_all(
         input,
@@ -313,6 +327,7 @@ message("Extracting stress information...")
       )
     }
     
+    # Apply arpa_to_ipa to segment cols
     cmudict_dld[,2:last_seg_col] <- t(
       pbapply(
         cmudict_dld[,2:last_seg_col],
@@ -321,7 +336,24 @@ message("Extracting stress information...")
       )
     )
     
+    # Create column for transcription
+    message("Collapsing transcriptions...")
+    cmudict_dld$transcription <- pbapply(
+      # The cmudict w/ the NAs in each row replaced by an empty string
+      cmudict_dld[,2:last_seg_col],
+      # By row
+      1,
+      # Function to apply (paste together the row after NAs replaced w/ empty string)
+      function(x){
+        paste(
+          replace(x,
+                which(is.na(x)),
+                c("NA" = "")),
+          collapse = ""
+        )
+      }
+    )
+    
     # Let user know formatting is done
     message("Formatting complete.")
   }
-  

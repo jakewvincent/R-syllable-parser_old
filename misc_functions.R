@@ -13,7 +13,7 @@ left = function(text, n_char) {
 #       class(d) <- c("unicode_df", "data.frame") 
 
 # this is print.default from base R with only two lines modified, see #old# 
-print.unicode_df <- function (x, ..., digits = NULL, quote = FALSE, right = TRUE, row.names = TRUE) { 
+print.unicode_df <- function (x, ..., digits = NULL, quote = FALSE, right = TRUE, row.names = TRUE) {
   n <- length(row.names(x)) 
   if (length(x) == 0L) { 
     cat(sprintf(ngettext(n, "data frame with 0 columns and %d row", 

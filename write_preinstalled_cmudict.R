@@ -10,6 +10,13 @@ source(file = "misc_functions.R")
 # Import dictionary downloader
 source(file = "cmudict_downloader.R")
 
+# If user.replacements exists, remove it
+if (exists("user.replacements")) {
+  rm(user.replacements)
+}
+# Set user.replacements to "preinstalled" and formatter will avoid asking about replacements.
+user.replacements <- "preinstalled"
+
 # Import CMU formatter
 if (.Platform$OS.type == "windows") {
   source.utf8(f = "cmudict_formatter.R")

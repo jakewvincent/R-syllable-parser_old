@@ -1,5 +1,7 @@
 # This is the master script for the syllable parser
-# Author: Jake Vincent (https://jakewvincent.github.io, https://people.ucsc.edu/~jwvincen)
+# Author: Jake Vincent
+# Website: https://jakewvincent.github.io | https://people.ucsc.edu/~jwvincen
+# Contact: jakewvincent@gmail.com | jwvincen@ucsc.edu
 
 # Get libraries
 require(magrittr)
@@ -12,6 +14,12 @@ require(readr)
 
 # Import misc. functions
 source(file = "misc_functions.R")
+# Import phonological distinctive feature chart
+source(file = "features.R")
+# Import CV function
+source(file = "cvify.R")
+# Import sonority function
+source(file = "sonority.R")
 
 # Import preinstalled cmudict
 cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
