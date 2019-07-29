@@ -1,6 +1,7 @@
 # Define a function that replaces IPA characters with their sonority value
 
-sonority <- function(text){
+# Old function
+sonority_old <- function(text){
   text <- as.character(text)
   if (length(text) > 1) {
     s_levels <- NA
@@ -25,4 +26,46 @@ sonority <- function(text){
     paste(sonified_tbl[,2], collapse = "") -> s_levels
   }
   return(s_levels)
+}
+
+# Make vector of IPA characters for each sonority level
+# Assume there are 6 sonority levels
+stops_affs <- paste(as.character(subset(features,
+                                        continuant == 0 & sonorant == 0)[,"segment"]),
+                    collapse = "|")
+fricatives <- paste(as.character(subset(features,
+                                        sonorant == 0 & continuant == 1)[,"segment"]),
+                    collapse = "|")
+nasals <- paste(as.character(subset(features,
+                                    nasal == 1)[,"segment"]),
+                collapse = "|")
+liquids <-  paste(as.character(subset(features,
+                                      consonantal == 1 & approximant == 1)[,"segment"]),
+                  collapse = "|")
+glides <- paste(as.character(subset(features,
+                                    syllabic == 0 & consonantal == 0)[,"segment"]),
+                collapse = "|")
+vowels <- paste(as.character(subset(features,
+                                    syllabic == 1)[,"segment"]),
+                collapse = "|")
+
+# New function
+sonority <- function(text) {
+  text <- as.character(text)
+  sapply(text,
+         function(y){
+           gsub(pattern = stops_affs,
+                replacement = "1",
+                x = gsub(pattern = fricatives,
+                         replacement = "2",
+                         x = gsub(pattern = nasals,
+                                  replacement = "3",
+                                  x = gsub(pattern = liquids,
+                                           replacement = "4",
+                                           x = gsub(pattern = glides,
+                                                    replacement = "5",
+                                                    x = gsub(pattern = vowels,
+                                                             replacement = "6",
+                                                             x = y))))))
+         })
 }
