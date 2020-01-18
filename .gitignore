@@ -1,4 +1,4 @@
-# Ignore these file extensions:
+# Ignore these files/file extensions:
 *.Rproj
 .RData
 .Rhistory
@@ -8,5 +8,5 @@
 cmudict-0.7b.xlsx
 
 # Ignore these directories
-.Rproj.user/
-.vscode/
+.Rproj.user
+.vscode
