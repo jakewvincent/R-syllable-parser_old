@@ -20,8 +20,9 @@ source(file = "features.R")
 source(file = "cvify.R")
 # Import sonority function
 source(file = "sonority.R")
+# Import 
 
-# Import preinstalledy cmudict
+# Import preinstalled cmudict
 cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
                                  col_names = TRUE,
                                  col_types = cols(.default = col_character()))
