@@ -15,12 +15,21 @@ require(readr)
 # Import misc. functions
 source(file = "misc_functions.R")
 # Import phonological distinctive feature chart
-source(file = "features.R")
+if (.Platform$OS.type == "windows") {
+  source.utf8(file = "features.R")
+} else {
+  source(file = "features.R")
+}
 # Import CV function
 source(file = "cvify.R")
 # Import sonority function
 source(file = "sonority.R")
-# Import 
+# Import main syllabify function
+if (.Platform$OS.type == "windows") {
+  source.utf8("syllabify_0.2.R")
+} else {
+  source(file = "syllabify_0.2.R")
+}
 
 # Import preinstalled cmudict
 cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
