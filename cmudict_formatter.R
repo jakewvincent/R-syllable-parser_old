@@ -353,7 +353,7 @@ message("Extracting stress information...")
         )
       }
     )
-    
+    cmudict <- cmudict_dld
     # Let user know formatting is done
     message("Formatting complete.")
   }
