@@ -36,6 +36,8 @@ cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
                                  col_names = TRUE,
                                  col_types = cols(.default = col_character()))
 preinstalled_version <- as.character(cmudict_preinstalled[1,1])
+# Make a copy of the preinstalled cmudict that can be overwritten by the updater
+cmudict <- cmudict_preinstalled
 
 response <- readline(prompt = "Check for updates to the CMU Pronouncing Dictionary? Input 'y' to check for updates or 'n' to skip and press enter: ")
 if (str_detect(response, "y|Y")) {
