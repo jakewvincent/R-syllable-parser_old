@@ -1,7 +1,7 @@
 # Define a function that converts a string of IPA characters into a string of Cs and Vs
 
 # Old function
-cvify <- function(text) {
+cvify_old <- function(text) {
   if (NA %in% text) {
     warning("Input contains NA(s), which I don't know how to CVify!")
     return(0)
@@ -44,7 +44,7 @@ all_consonants <- paste(as.character(subset(features,
                         collapse = "|")
 
 # New function:
-cv <- function(text) {
+cvify <- function(text) {
   text <- as.character(text)
   
   # Split string into component chars

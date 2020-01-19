@@ -21,19 +21,19 @@ source(file = "cvify.R")
 # Import sonority function
 source(file = "sonority.R")
 
-# Import preinstalled cmudict
+# Import preinstalledy cmudict
 cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
                                  col_names = TRUE,
                                  col_types = cols(.default = col_character()))
 preinstalled_version <- as.character(cmudict_preinstalled[1,1])
 
-response <- readline(prompt = "Check for updates to the dictionary? Enter 'y' to check for updates or 'n' to skip: ")
+response <- readline(prompt = "Check for updates to the CMU Pronouncing Dictionary? Input 'y' to check for updates or 'n' to skip and press enter: ")
 if (str_detect(response, "y|Y")) {
   # Import CMU latest version checker
   source(file = "cmudict_version_checker.R")
   
   if (latest_version != preinstalled_version) {
-    response <- readline(prompt = "Do you wish to download the latest version of cmudict? Enter 'y' to download update or 'n' to skip: ")
+    response <- readline(prompt = "Do you wish to download the latest version of cmudict? Input 'y' or 'n' and press enter: ")
     if (str_detect(response, "y|Y")) {
       # Import CMU downloader
       source(file = "cmudict_downloader.R")
