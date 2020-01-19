@@ -46,3 +46,9 @@ source.utf8 <- function(f) {
   l <- readLines(f, encoding="UTF-8")
   eval(parse(text=l),envir=.GlobalEnv)
 }
+
+# Define transcription lookup function (transcribe())
+transcribe <- function(text) {
+  subset(cmudict, word == text, select = transcription)[1,1] -> transcribed
+  return(transcribed)
+}
