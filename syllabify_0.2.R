@@ -20,11 +20,11 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
     # Removed: ʃl, ʃm, ʃn, ʃw, bw (two bilabials), dj, gj, sv, ts, 
   }
   
-  # If verbosity not specified, select non-verbose
+  # If verbosity not specified, assign non-verbose
   if (missing(verbosity)) {
     verbosity <- "non-verbose"
   }
-  
+      
   # Make a df to store syllabification info
   syllabification <- data.frame(NA)
   
@@ -40,7 +40,8 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
     # Add the word to the df
     syllabification[word, 1] <- input[word]
     
-    # Index ea segment by splitting word into component chars & associating ea w/ a # corresponding to its string-linear position
+    # Index each segment by splitting word into component characters and associating
+    # each character with a number corresponding to its position in the string.
     split_word <- unlist(strsplit(as.character(input[word]), split = ""))
     char_index <- as.data.frame(as.matrix(split_word))
     class(char_index) <- c("unicode_df",
@@ -115,15 +116,20 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
           vowels[vowel,"which.diphthong"] <- row(diphthongs[,1:2])[which(diphthongs[,1:2] == vowels$position[vowel])]
         } else {
           vowels[vowel,"in.diphthong"] <- FALSE
-          # If the vowel isn't part of a diphthong, set "which.diphthong" to 0. Anything that's an actual diphthong will never be assigned zero, ...
-          # since row numbers (in the diphthongs df) start w/ 1. Needs to be 0 b/c otherwise it's NA, in which case ...
-          # an error is returned when testing if two vowel characters are part of the same diphthong.
+          # If the vowel isn't part of a diphthong, set "which.diphthong" to 0.
+          # Anything that's an actual diphthong will never be assigned zero
+          # since row numbers (in the diphthongs df) start w/ 1.
+          # It needs to be; otherwise, it's NA, in which case an error is returned
+          # when testing if two vowel characters are part of the same diphthong.
           vowels[vowel,"which.diphthong"] <- 0
         }
       } else {
         vowels[vowel,"in.diphthong"] <- FALSE
-        # If the vowel isn't part of a diphthong, set "which.diphthong" to 0. Anything that's an actual diphthong will never be assigned zero, ...
-        # since row numbers (in the diphthongs df) start w/ 1. Needs to be 0 b/c otherwise it's NA, in which case an error is returned when testing if two vowel characters are part of the same diphthong.
+        # If the vowel isn't part of a diphthong, set "which.diphthong" to 0.
+        # Anything that's an actual diphthong will never be assigned zero
+        # since row numbers (in the diphthongs df) start w/ 1.
+        # It needs to be; otherwise, it's NA, in which case an error is returned
+        # when testing if two vowel characters are part of the same diphthong.
         vowels[vowel,"which.diphthong"] <- 0
       }
     }
@@ -144,7 +150,8 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
         # Add one to the syllable counter
         x <- x+1
       } else {
-        # If we're not at the last vowel in vowels and the vowel and the following vowel are part of a diphthong together, paste them together as the next nucleus
+        # If we're not at the last vowel in vowels and the vowel and the following
+        # vowel are part of a diphthong together, paste them together as the next nucleus
         if (vowel != nrow(vowels)) {
           if (vowels[vowel,"which.diphthong"] > 0 & vowels[vowel,"which.diphthong"] == vowels[vowel+1,"which.diphthong"]) {
             nuclei[x] <- paste(as.character(vowels[vowel:(vowel+1),"segment"]),
@@ -207,8 +214,9 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
           char_index[consonant,"parsed"] <- TRUE
           char_index[consonant,"syllable"] <- char_index[consonant+1, "syllable"]
         } else {
-          # Otherwise, if the position of the unparsed consonant does NOT immediately precede the end of the word, AND immediately precedes another consonant, ...
-          # check if the string formed by pasting those two consonants together is in the list of licit onsets
+          # Otherwise, if the position of the unparsed consonant does NOT immediately precede
+          # the end of the word, AND immediately precedes another consonant, check if the string
+          # formed by pasting those two consonants together is in the list of licit onsets.
           if (is.na(as.character(char_index[consonant+1, "segment"])) == FALSE){
             #if (6 %in% char_index[consonant:nrow(char_index), "sonority"]) {}
               if (cvify(as.character(char_index[consonant+1,"segment"])) == "C") {
