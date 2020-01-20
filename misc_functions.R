@@ -52,3 +52,9 @@ transcribe <- function(text) {
   subset(cmudict, word == text, select = transcription)[1,1] -> transcribed
   return(transcribed)
 }
+
+# Random word function
+random_word <- function(){
+  cmudictipa[sample(1:nrow(cmudictipa), 1),"word"] -> rw
+  return(rw)
+}

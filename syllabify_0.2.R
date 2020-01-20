@@ -270,8 +270,3 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
   #  }
   return(syllabification)
 }
-
-random_word <- function(){
-  cmudictipa[sample(1:nrow(cmudictipa), 1),"word"] -> rw
-  return(rw)
-}
