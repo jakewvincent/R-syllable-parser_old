@@ -11,13 +11,13 @@ The parser uses a particular strategy taught to undergraduate students of Phonol
 ### Prerequisites
 1. [R programming language environment](https://www.r-project.org/about.html)
 2. The following R packages:
-    a. [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
-    b. [magrittr](https://cran.r-project.org/web/packages/magrittr/index.html)
-    c. [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html)
-    d. [readr](https://cran.r-project.org/web/packages/readr/index.html)
-    e. [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
-    f. [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
+   * [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
+   * [magrittr](https://cran.r-project.org/web/packages/magrittr/index.html)
+   * [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html)
+   * [readr](https://cran.r-project.org/web/packages/readr/index.html)
+   * [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
+   * [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
 3. Optional packages:
-    a. [pbapply](https://cran.rstudio.com/web/packages/pbapply/index.html) (Required for progress bars to work in the dictionary formatter)
+   * [pbapply](https://cran.rstudio.com/web/packages/pbapply/index.html) (Required for progress bars to work in the dictionary formatter)
 
 ### Installing
