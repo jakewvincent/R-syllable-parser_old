@@ -17,12 +17,12 @@ The parser basically uses a strategy taught to undergraduate students of Phonolo
 2. The following R packages:
    * [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
    * [magrittr](https://cran.r-project.org/web/packages/magrittr/index.html)
-   * [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html)
    * [readr](https://cran.r-project.org/web/packages/readr/index.html)
    * [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
    * [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
 3. Optional packages:
-   * [pbapply](https://cran.rstudio.com/web/packages/pbapply/index.html) (Required for progress bars to work in the dictionary formatter)
+   * [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html) (Required for checking dictionary version and downloading updates)
+   * [pbapply](https://cran.rstudio.com/web/packages/pbapply/index.html) (Required by dictionary formatter)
 
 ### Installing
 #### Using Git
@@ -38,9 +38,8 @@ The parser basically uses a strategy taught to undergraduate students of Phonolo
 ## Using the parser (section under construction)
 After sourcing `master.R` as above, all of the functions defined by these scripts are available for use. Some of these functions (namely, `cvify()` and `sonority()`) are mainly used internally. Here is a description of each function:
 
-### `transcribe()`
 ### `syllabify()`
+### `transcribe()`
 ### `cvify()`
 ### `sonority()`
 ### `random_word()`
-
