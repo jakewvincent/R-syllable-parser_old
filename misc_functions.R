@@ -49,7 +49,7 @@ source.utf8 <- function(f) {
 
 # Define transcription lookup function (transcribe())
 transcribe <- function(text) {
-  subset(cmudict, word == text, select = transcription)[1,1] -> transcribed
+  subset(cmudict, tolower(word) == text, select = transcription)[1,1] -> transcribed
   return(transcribed)
 }
 
