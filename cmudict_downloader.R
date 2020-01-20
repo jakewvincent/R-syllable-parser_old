@@ -1,5 +1,6 @@
 # Download most recent CMU dictionary file & apply formatting
 
+# Load required packages
 require(stringr)
 require(RCurl)
 
