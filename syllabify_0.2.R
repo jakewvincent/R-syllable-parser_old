@@ -220,7 +220,8 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
           if (is.na(as.character(char_index[consonant+1, "segment"])) == FALSE){
             #if (6 %in% char_index[consonant:nrow(char_index), "sonority"]) {}
               if (cvify(as.character(char_index[consonant+1,"segment"])) == "C") {
-                # If those two characters pasted together is in the list of licit onsets, then parse the current consonant into the syllable of the following consonant
+                # If those two characters pasted together is in the list of licit onsets,
+                # then parse the current consonant into the syllable of the following consonant
                 if (paste(c(as.character(char_index[consonant, "segment"]),
                             as.character(char_index[consonant+1, "segment"])),
                           collapse = "") %in% onset_list) {
