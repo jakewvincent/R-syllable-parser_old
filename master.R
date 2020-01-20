@@ -9,7 +9,6 @@ require(dplyr)
 require(stringr)
 require(tidyr)
 require(dplyr)
-require(RCurl)
 require(readr)
 
 # Import misc. functions

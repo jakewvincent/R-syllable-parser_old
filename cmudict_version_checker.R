@@ -1,5 +1,8 @@
 ## Get current version of CMU pronouncing dictionary
 
+# Load required packages
+require(RCurl)
+
 # See if the website can be accessed
 message("Making sure the cmu dictionary can be accessed...")
 result <- url.exists("http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/")
