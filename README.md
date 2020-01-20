@@ -25,3 +25,22 @@ The parser basically uses a strategy taught to undergraduate students of Phonolo
    * [pbapply](https://cran.rstudio.com/web/packages/pbapply/index.html) (Required for progress bars to work in the dictionary formatter)
 
 ### Installing
+#### Using Git
+1. Clone this repository into a directory of your choosing: `git clone https://github.com/jakewvincent/R-syllable-parser.git`
+2. Open an R terminal and set your working directory to the directory where you cloned this repository.
+3. Source `master.R` by running `source(file = "master.R")` in your R terminal.
+
+#### By downloading .zip file
+1. [Download this repository as a zip file](https://github.com/jakewvincent/R-syllable-parser/archive/master.zip) and unzip it into a directory of your choosing.
+2. Open an R terminal and set your working directory to the directory where you unzipped the zipped repository file.
+3. Source `master.R` by running `source(file = "master.R")` in your R terminal.
+
+## Using the parser (section under construction)
+After sourcing `master.R` as above, all of the functions defined by these scripts are available for use. Some of these functions (namely, `cvify()` and `sonority()`) are mainly used internally. Here is a description of each function:
+
+### `transcribe()`
+### `syllabify()`
+### `cvify()`
+### `sonority()`
+### `random_word()`
+
