@@ -29,4 +29,4 @@ write_csv(
   cmudict_dld,
   path = "cmudict_preinstalled.csv",
   col_names = TRUE
-  )
+)
