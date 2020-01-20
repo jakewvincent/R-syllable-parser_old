@@ -214,22 +214,25 @@ syllabify <- function(input, diphthong_list, onset_list, verbosity) {
           char_index[consonant,"parsed"] <- TRUE
           char_index[consonant,"syllable"] <- char_index[consonant+1, "syllable"]
         } else {
-          # Otherwise, if the position of the unparsed consonant does NOT immediately precede
+          # Otherwise, if there are vowels following the consonant, and the position
+          # of the unparsed consonant does NOT immediately precede
           # the end of the word, AND immediately precedes another consonant, check if the string
           # formed by pasting those two consonants together is in the list of licit onsets.
-          if (is.na(as.character(char_index[consonant+1, "segment"])) == FALSE){
-            if (cvify(as.character(char_index[consonant+1,"segment"])) == "C") {
-              # If those two characters pasted together is in the list of licit onsets,
-              # then parse the current consonant into the syllable of the following consonant
-              if (paste(c(as.character(char_index[consonant, "segment"]),
-                          as.character(char_index[consonant+1, "segment"])),
-                        collapse = "") %in% onset_list) {
-                syllabification[word,char_index[consonant+1,"syllable"]] <- paste(c(as.character(char_index[consonant,"segment"]),
-                                                                                    syllabification[word,char_index[consonant+1,"syllable"]]),
-                                                                                  collapse = "")
-                # And mark that segment's parsed status as TRUE and indicate which syllable it was parsed into
-                char_index[consonant,"parsed"] <- TRUE
-                char_index[consonant,"syllable"] <- char_index[consonant+1, "syllable"]
+          if (TRUE %in% (consonant < vowels$position)) {
+            if (is.na(as.character(char_index[consonant+1, "segment"])) == FALSE){
+              if (cvify(as.character(char_index[consonant+1,"segment"])) == "C") {
+                # If those two characters pasted together is in the list of licit onsets,
+                # then parse the current consonant into the syllable of the following consonant
+                if (paste(c(as.character(char_index[consonant, "segment"]),
+                            as.character(char_index[consonant+1, "segment"])),
+                          collapse = "") %in% onset_list) {
+                  syllabification[word,char_index[consonant+1,"syllable"]] <- paste(c(as.character(char_index[consonant,"segment"]),
+                                                                                      syllabification[word,char_index[consonant+1,"syllable"]]),
+                                                                                    collapse = "")
+                  # And mark that segment's parsed status as TRUE and indicate which syllable it was parsed into
+                  char_index[consonant,"parsed"] <- TRUE
+                  char_index[consonant,"syllable"] <- char_index[consonant+1, "syllable"]
+                }
               }
             }
           }
