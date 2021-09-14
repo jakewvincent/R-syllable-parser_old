@@ -1,7 +1,7 @@
 # This is the master script for the syllable parser
 # Author: Jake Vincent
 # Website: https://jakewvincent.github.io | https://people.ucsc.edu/~jwvincen
-# Contact: jakewvincent@gmail.com | jwvincen@ucsc.edu
+# Contact: jakewvincent@gmail.com
 
 # Get libraries
 require(magrittr)
@@ -34,7 +34,7 @@ if (.Platform$OS.type == "windows") {
 cmudict_preinstalled <- read_csv(file = "cmudict_preinstalled.csv",
                                  col_names = TRUE,
                                  col_types = cols(.default = col_character()))
-preinstalled_version <- as.character(cmudict_preinstalled[1,1])
+preinstalled_version <- as.character(cmudict_preinstalled[1, 1])
 # Make a copy of the preinstalled cmudict that can be overwritten by the updater
 cmudict <- cmudict_preinstalled
 

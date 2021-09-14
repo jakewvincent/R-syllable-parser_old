@@ -1,4 +1,4 @@
-# Define a function that converts a string of IPA characters into a string of Cs and Vs
+# Define a function that converts a string of IPA chars into a CV string
 
 # Old function
 cvify_old <- function(text) {
@@ -13,19 +13,19 @@ cvify_old <- function(text) {
         split_text <- unlist(strsplit(text[word], split = ""))
         split_text_tbl <- matrix(split_text)
         CV_string <- NA
-        for (segment in 1:length(split_text_tbl[,1])) {
-          features[which(features[,"segment"] == split_text_tbl[segment,1]), "syllabic"] -> syllabic
+        for (segment in 1:length(split_text_tbl[, 1])) {
+          features[which(features[, "segment"] == split_text_tbl[segment, 1]), "syllabic"] -> syllabic
           ifelse(syllabic == "1", "V", "C") -> CV_string[segment]
         }
         CVified_tbl <- cbind(split_text_tbl, CV_string)
-        paste(CVified_tbl[,2], collapse = "") -> CVs[word]
+        paste(CVified_tbl[, 2], collapse = "") -> CVs[word]
       }
     } else {
       split_text <- unlist(strsplit(text, split = ""))
       matrix(split_text) -> split_text_tbl
       CV_string <- NA
-      for (segment in 1:length(split_text_tbl[,1])) {
-        features[which(features[,"segment"] == split_text_tbl[segment,1]), "syllabic"] -> syllabic
+      for (segment in 1:length(split_text_tbl[, 1])) {
+        features[which(features[, "segment"] == split_text_tbl[segment, 1]), "syllabic"] -> syllabic
         ifelse(syllabic == "1", "V", "C") -> CV_string[segment]
       }
       CVified_tbl <- cbind(split_text_tbl, CV_string)
@@ -37,21 +37,22 @@ cvify_old <- function(text) {
 
 # Vowel & consonant lists
 all_vowels <- paste(as.character(subset(features,
-                                        syllabic == 1)[,"segment"]),
+                                        syllabic == 1)[, "segment"]),
                     collapse = "|")
 all_consonants <- paste(as.character(subset(features,
-                                            syllabic == 0)[,"segment"]),
+                                            syllabic == 0)[, "segment"]),
                         collapse = "|")
 
 # New function:
 cvify <- function(text) {
   text <- as.character(text)
-  
+
   # Split string into component chars
   #split_text <- strsplit(text, split = "")
   sapply(text,
-         function(y){
-           # Recursive gsub function. The object that the first gsub function takes is the output of the embedded gsub function.
+         function(y) {
+           # Recursive gsub function. The object that the first gsub function
+           # takes is the output of the embedded gsub function.
            gsub(pattern = all_vowels,
                 replacement = "V",
                 x = gsub(pattern = all_consonants,

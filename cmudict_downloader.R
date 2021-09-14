@@ -6,7 +6,8 @@ require(RCurl)
 
 
   ## TO DO:
-  ## Use version checker latest version value to find the file of the latest version
+  ## Use version checker latest version value to find the file of the latest
+  ## version
 
 # Make url for most recent version
 latest_cmudict_url <- paste("http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-", latest_version, sep = "")
@@ -14,7 +15,8 @@ latest_cmudict_url <- paste("http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudi
 # Determine accessibility of the dictionary page
 url.exists(latest_cmudict_url) -> result
 
-# If the url doesn't exist, send an internet connection warning. Otherwise, read the file in as a csv.
+# If the url doesn't exist, send an internet connection warning. Otherwise,
+# read the file in as a csv.
 if (result == FALSE) {
   warning(c("Couldn't connect to ",
             latest_cmudict_url,

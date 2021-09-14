@@ -1,4 +1,5 @@
-## This script saves the pre-packaged version of cmudict and is not called in master.R
+## This script saves the pre-packaged version of cmudict.
+## It is not called in master.R
 ## Before running this, run cmudict_downloader.R and cmudict_formatter.R
 
 require(magrittr)
@@ -14,7 +15,8 @@ source(file = "cmudict_downloader.R")
 if (exists("user.replacements")) {
   rm(user.replacements)
 }
-# Set user.replacements to "preinstalled" and formatter will avoid asking about replacements.
+# Set user.replacements to "preinstalled" and formatter will avoid
+# asking about replacements.
 user.replacements <- "preinstalled"
 
 # Import CMU formatter

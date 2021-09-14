@@ -44,7 +44,8 @@ write_lines(cmudict_raw,
 
 # Make a data.frame from cmudict_raw
 cmudict_dld <- read_csv(file = "cmudict_raw.csv",
-                        col_names = c("word", paste("segment", 1:longest, sep = "")),
+                        col_names = c("word",
+                                      paste("segment", 1:longest, sep = "")),
                         col_types = cols(.default = col_character()))
 
 # Enrich dictionary with stress information
@@ -67,10 +68,10 @@ message("Extracting stress information...")
   max_sec_stress <- max(sec_stress_counts)
   
   # Add appropriate # of cols for each kind of stress
-  cmudict_dld[,paste("prstr",
+  cmudict_dld[, paste("prstr",
                      1:max_prim_stress,
                      sep = "")] <- NA
-  cmudict_dld[,paste("secstr",
+  cmudict_dld[, paste("secstr",
                      1:max_sec_stress,
                      sep = "")] <- NA
   
@@ -119,41 +120,41 @@ message("Extracting stress information...")
   
   # Create a df w/ primary stress positions (by name of column, which reflects segment #)
   prim_stress_locs <- as.data.frame(
-    t(apply(cmudict_dld[,2:last_seg_col],
+    t(apply(cmudict_dld[, 2:last_seg_col],
             1, # Apply by row
-            function(x){
+            function(x) {
               # Save the colnames of the segments that end in 1 (bear primary stress)
-              r_s <- colnames(cmudict_dld[,2:last_seg_col])[which(right(x, 1) == "1")]
+              r_s <- colnames(cmudict_dld[, 2:last_seg_col])[which(right(x, 1) == "1")]
               # Concatenate these colnames w/ the num of NAs necessary to make the length 6
               c(r_s,
                 rep(NA,
-                    max_prim_stress-length(unlist(r_s))))
+                    max_prim_stress - length(unlist(r_s))))
               }
             )
       ),
     stringsAsFactors = FALSE
     )
   # Add primary stress locations to main cmudict df
-  cmudict_dld[,(last_seg_col+1):last_pstress_col] <- prim_stress_locs
+  cmudict_dld[, (last_seg_col + 1):last_pstress_col] <- prim_stress_locs
   
   # Create a df w/ secondary stress positions
   sec_stress_locs <- as.data.frame(
     t(apply(cmudict_dld[,2:last_seg_col],
             1, # Apply by row
-            function(x){
+            function(x) {
               # Save the colnames of the segments that end in 2 (bear secondary stress)
-              r_s <- colnames(cmudict_dld[,2:last_seg_col])[which(right(x, 1) == "2")]
+              r_s <- colnames(cmudict_dld[, 2:last_seg_col])[which(right(x, 1) == "2")]
               # Concatenate these colnames w/ the num of NAs necessary to make the length 6
               c(r_s,
                 rep(NA,
-                    max_sec_stress-length(unlist(r_s))))
+                    max_sec_stress - length(unlist(r_s))))
               }
             )
       ),
     stringsAsFactors = FALSE
     )
   # Add secondary stress locations to main cmudict df
-  cmudict_dld[,(last_pstress_col+1):(last_pstress_col+max_sec_stress)] <- sec_stress_locs
+  cmudict_dld[, (last_pstress_col + 1):(last_pstress_col + max_sec_stress)] <- sec_stress_locs
   
   # Convert ARPABET codes to IPA characters
   # TO-DO: Make this an external file that's imported so that it's user-adjustable
@@ -270,9 +271,9 @@ message("Extracting stress information...")
     stop("Formatting halted and reverted to downloaded stage.")
   } else {
     # Define ARPABET-to-IPA replacement function
-    arpa_to_ipa <- function(input, replacements){
+    arpa_to_ipa <- function(input, replacements) {
       require(stringr)
-      if (missing(replacements)){
+      if (missing(replacements)) {
         if (user.replacements == "default") {
           replacements <- c("AA0|AA1|AA2" = "\u0251", #\u0251 = ɑ
                             "AE0|AE1|AE2" = "\u00E6", #\u00E6 = æ
@@ -280,25 +281,25 @@ message("Extracting stress information...")
                             "AH1|AH2" = "\u028C", #\u028C = ʌ
                             "AO0|AO1|AO2" = "\u0254", #\u0254 = ɔ
                             "AW0|AW1|AW2" = "a\u028A", #\u028A = ʊ
-                            "AY0|AY1|AY2" = "a\u026A", #\u026A  = ɪ 
+                            "AY0|AY1|AY2" = "a\u026A", #\u026A  = ɪ
                             "B" = "b",
-                            "CH" = "\u02A6", #\u02A6  = ʦ 
+                            "CH" = "\u02A6", #\u02A6  = ʦ
                             "DH" = "\u00F0", #\u00F0  = ð
                             "D" = "d",
                             "EH0|EH1|EH2" = "\u025B", #\u025B  = ɛ
                             "ER0|ER1|ER2" = "\u025A", #\u025A  = ɚ
-                            "EY0|EY1|EY2" = "e\u026A", #\u026A  = ɪ 
+                            "EY0|EY1|EY2" = "e\u026A", #\u026A  = ɪ
                             "F" = "f",
-                            "HH" = "h", 
-                            "IH0|IH1|IH2" = "\u026A", #\u026A  = ɪ 
+                            "HH" = "h",
+                            "IH0|IH1|IH2" = "\u026A", #\u026A  = ɪ
                             "IY0|IY1|IY2" = "i",
                             "JH" = "\u02A3", #\u02A3  = ʣ
                             "K" = "k",
-                            "L" = "l", 
-                            "M" = "m", 
+                            "L" = "l",
+                            "M" = "m",
                             "NG" = "\u014B", #\u014B  = ŋ
                             "G" = "g",
-                            "N" = "n", 
+                            "N" = "n",
                             "OW0|OW1|OW2" = "o\u028A", #\u028A = ʊ
                             "OY0|OY1|OY2" = "\u0254\u026A", #\u0254 = ɔ, \u026A  = ɔɪ
                             "P" = "p",
@@ -310,9 +311,9 @@ message("Extracting stress information...")
                             "UH0|UH1|UH2" = "\u028A", #\u028A = ʊ
                             "UW0|UW1|UW2" = "u",
                             "V" = "v",
-                            "W" = "w", 
-                            "Y" = "j", 
-                            "ZH" = "\u0292", #\u0292  = ʒ 
+                            "W" = "w",
+                            "Y" = "j",
+                            "ZH" = "\u0292", #\u0292  = ʒ
                             "Z" = "z"
                             )
         } else {
@@ -326,25 +327,25 @@ message("Extracting stress information...")
         replacements
       )
     }
-    
+
     # Apply arpa_to_ipa to segment cols
-    cmudict_dld[,2:last_seg_col] <- t(
+    cmudict_dld[, 2:last_seg_col] <- t(
       pbapply(
-        cmudict_dld[,2:last_seg_col],
+        cmudict_dld[, 2:last_seg_col],
         1,
         arpa_to_ipa
       )
     )
-    
+
     # Create column for transcription
     message("Collapsing transcriptions...")
     cmudict_dld$transcription <- pbapply(
       # The cmudict w/ the NAs in each row replaced by an empty string
-      cmudict_dld[,2:last_seg_col],
+      cmudict_dld[, 2:last_seg_col],
       # By row
       1,
       # Function to apply (paste together the row after NAs replaced w/ empty string)
-      function(x){
+      function(x) {
         paste(
           replace(x,
                 which(is.na(x)),

@@ -17,7 +17,7 @@ if (result == FALSE) {
 }
 
 # Get rid of html tags, first two elements in matrix
-cmu_versions_raw <- str_replace_all(cmu_versions_raw[3:length(cmu_versions_raw[,1]),1], "<.+?>", "")
+cmu_versions_raw <- str_replace_all(cmu_versions_raw[3:length(cmu_versions_raw[, 1]), 1], "<.+?>", "")
 
 # Save rows w/ "cmudict" to a separate df, cmu_versions
 cmu_versions <- NA
@@ -34,7 +34,10 @@ cmu_versions_raw <- cmu_versions
 cmu_versions <- NA
 x <- 1
 for (n in 1:length(cmu_versions_raw)) {
-  if (str_detect(cmu_versions_raw[n], "\\.phones") == TRUE | str_detect(cmu_versions_raw[n], "\\.symbols") == TRUE) {
+  if (str_detect(cmu_versions_raw[n],
+                 "\\.phones") == TRUE |
+      str_detect(cmu_versions_raw[n],
+                 "\\.symbols") == TRUE) {
     # Do nothing
   } else {
     cmu_versions[x] <- cmu_versions_raw[n]
@@ -48,7 +51,7 @@ cmu_versions <- str_extract_all(cmu_versions, "\\d.+?$", simplify = TRUE)
 # Convert to df
 cmu_versions <- as.data.frame(as.matrix(cmu_versions), stringsAsFactors = FALSE)
 
-# Rearrange rows in descending order so that the most recent version is at the top
+# Rearrange rows in descending order so the most recent version is at the top
 cmu_versions <- arrange(cmu_versions, desc(V1))
 
 # Name most recent version
